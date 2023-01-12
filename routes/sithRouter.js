@@ -1,7 +1,7 @@
 const express = require(`express`)
 const sithRouter = express.Router()
 const { v4: uuidv4 } = require('uuid');
-const jediRouter = require('./jediRouter');
+const jediRouter = require('./mainList');
 
 const app = express()
 const port = 3001
