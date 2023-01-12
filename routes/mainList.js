@@ -2,8 +2,8 @@ const express = require(`express`)
 const jediRouter = express.Router()
 const { v4: uuidv4 } = require('uuid');
 
-const jedi = [
-    {fName:"luke", lName:"skywalker", living:true, bountyAmount:100, type:"jedi", _id:uuidv4},
+const bounty = [
+    {fName:"luke", lName:"skywalker", living:true, bountyAmount:100, type:"jedi", _id:uuidv4()},
     {fName:"j1", lName:"j1", living:true, bountyAmount:100, type:"jedi", _id:uuidv4()},
     {fName:"j2", lName:"j2", living:true, bountyAmount:100, type:"jedi", _id:uuidv4()},
     {fName:"j3", lName:"j3", living:true, bountyAmount:100, type:"jedi", _id:uuidv4()},
@@ -16,7 +16,7 @@ const jedi = [
 ]
 
 jediRouter.get("/", (req, res) => {
-    res.send(jedi)
+    res.send(bounty)
 })
 
 jediRouter.post("/", (req, res) => {
@@ -25,6 +25,13 @@ jediRouter.post("/", (req, res) => {
     jedi.push(newJedi)
     res.send(`New jedi was added `)
     // res.send(newJedi)
+})
+
+jediRouter.delete("/:bountyId", (req, res) => {
+    const bountyId = req.params.bountyId
+    const bountyIndex = bounty.findIndex(bountyItem => bountyItem._id === bountyId)
+    bounty.splice(bountyIndex, 1)
+    res.send("jedi/sith deleted")
 })
 
 module.exports = jediRouter
