@@ -34,4 +34,13 @@ jediRouter.delete("/:bountyId", (req, res) => {
     res.send("jedi/sith deleted")
 })
 
+jediRouter.put("/:bountyId", (req, res) => {
+    const bountyId = req.params.bountyId
+    const updateObject = req.body
+
+    const bountyIndex = bounty.findIndex(bountyItem => bountyItem._id === bountyId)
+    const updatedBountyItem = Object.assign(bounty[bountyIndex], updateObject)
+    res.send(updatedBountyItem)
+})
+
 module.exports = jediRouter
