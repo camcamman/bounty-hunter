@@ -2,19 +2,19 @@ import React, { useState } from "react";
 
 export default function BountyForm (props) {
     const initInputs = {
-        fName:"",
-        lName:"", 
-        living:true, 
-        bountyAmount:0, 
-        type:""
+        fName: props.fName || "",
+        lName: props.lName || "", 
+        living: props.living || true, 
+        bountyAmount: props.bountyAmount || 0, 
+        type: props.type || ""
     }
 
     const [BountyFormState, setBountyFormState] = useState({
-    fName:"",
-    lName:"", 
-    living:true, 
-    bountyAmount:0, 
-    type:""
+        fName: props.fName || "",
+        lName: props.lName || "", 
+        living: props.living || true, 
+        bountyAmount: props.bountyAmount || 0, 
+        type: props.type || ""
     })
 
     function handleChange (e) {
@@ -29,7 +29,7 @@ export default function BountyForm (props) {
 
     function handleSumbit (e) {
         e.preventDefault()
-        props.addBounty(BountyFormState)
+        props.addBounty(BountyFormState, props._id )
         setBountyFormState(initInputs)
     }
 
