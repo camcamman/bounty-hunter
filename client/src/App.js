@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios'
+import BountyForm from "./BountyForm";
 
 
 export default function App () {
@@ -28,6 +29,7 @@ export default function App () {
 
     return(
         <div>
+            <BountyForm />
             {mappedBountyData}
         </div>
     )
