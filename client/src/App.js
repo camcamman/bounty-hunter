@@ -6,15 +6,27 @@ import BountyForm from "./BountyForm";
 export default function App () {
     const [bountyData, setBountyData] = useState([])
 
-    useEffect(() => {
+    function getBounty () {
         axios.get("/bounty")
         .then(res => setBountyData(() => res.data))
         .catch(err => console.error(err))
+    }
+
+    function addBounty (newBounty) {
+        axios.post("/bounty", newBounty)
+        .then(res => {
+            setBountyData(prevBounty => [...prevBounty, newBounty])
+        })
+        .catch(err => console.error(err))
+    }
+
+    useEffect(() => {
+        getBounty()
     }, [])
 
     const mappedBountyData = bountyData.map(bountyItem => {
         return(
-            <div>
+            <div key={bountyItem._id}>
                 <p>First Name: {bountyItem.fName}</p>
                 <p>Last Name: {bountyItem.lName}</p>
                 <p>{bountyItem.living? 
@@ -29,7 +41,9 @@ export default function App () {
 
     return(
         <div>
-            <BountyForm />
+            <BountyForm
+                addBounty={addBounty}
+            />
             {mappedBountyData}
         </div>
     )

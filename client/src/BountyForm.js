@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 
-export default function BountyForm () {
+export default function BountyForm (props) {
+    const initInputs = {
+        fName:"",
+        lName:"", 
+        living:true, 
+        bountyAmount:0, 
+        type:""
+    }
+
     const [BountyFormState, setBountyFormState] = useState({
     fName:"",
     lName:"", 
@@ -19,9 +27,15 @@ export default function BountyForm () {
         })
     }
 
+    function handleSumbit (e) {
+        e.preventDefault()
+        props.addBounty(BountyFormState)
+        setBountyFormState(initInputs)
+    }
+
     return(
         <div>
-            <form>
+            <form onSubmit={handleSumbit}>
                 <input
                     type="text"
                     placeholder="First name"
@@ -60,6 +74,8 @@ export default function BountyForm () {
                     onChange={handleChange}
                     value={BountyFormState.type}
                 />
+                <input 
+                type="submit"/>
             </form>
         </div>
     )
