@@ -7,7 +7,7 @@ export default function App () {
 
     useEffect(() => {
         axios.get("/bounty")
-        .then(res => console.log(res))
+        .then(res => console.log(res.data))
         .catch(err => console.error(err))
     }, [])
 
