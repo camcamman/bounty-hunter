@@ -31,6 +31,7 @@ export default function BountyForm (props) {
         e.preventDefault()
         props.addBounty(BountyFormState, props._id )
         setBountyFormState(initInputs)
+        !props.toggleEdit && props.toggle()
     }
 
     return(

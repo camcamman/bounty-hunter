@@ -20,13 +20,15 @@ export default function BountyList (props) {
                 </>:
                 <>
                     <BountyForm
-                    fName = {fName}
-                    lName = {lName}
-                    living = {living}
-                    bountyAmount = {bountyAmount}
-                    type = {type}
-                    addBounty={editBounty}
-                    _id ={_id}
+                        fName = {fName}
+                        lName = {lName}
+                        living = {living}
+                        bountyAmount = {bountyAmount}
+                        type = {type}
+                        addBounty={editBounty}
+                        _id ={_id}
+                        toggleEdit ={toggleEdit}
+                        toggle ={toggle}
                     />
                     <button onClick={toggle}>Exit</button>
                 </>
