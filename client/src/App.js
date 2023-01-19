@@ -24,19 +24,7 @@ export default function App () {
     function editBounty (updates, bountyId) {
         axios.put(`/bounty/${bountyId}`, updates)
         .then(res => {
-            // setBountyData(prevBounty => prevBounty.map(bounty => !bounty._id === bountyId ? bounty : res.data))
-            // setBountyData(prevBounty => prevBounty.map(bounty => bounty._id === bountyId? res.data: bounty))
-            setBountyData(prevBounty => prevBounty.map(bounty => {
-                if (bounty._id === bountyId) {
-                    // console.log(bounty._id)
-                    // console.log("the true")
-                    return res.data
-                } else {
-                    // console.log(bounty._id)
-                    // console.log("the else")
-                    return bounty
-                }
-            }))
+            setBountyData(prevBounty => prevBounty.map(bounty => bounty._id === bountyId ? res.data : bounty))
         })
         .catch(err => console.error(err))
     }
