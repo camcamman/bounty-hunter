@@ -29,6 +29,12 @@ export default function App () {
         .catch(err => console.error(err))
     }
 
+    function deleteBounty (bountyId) {
+        axios.delete(`/bounty/${bountyId}`)
+        .then(res => setBountyData(prevBounty => prevBounty.filter(bounty => bounty._id !== bountyId)))
+        .catch(err => console.error(err))
+    }
+
     useEffect(() => {
         getBounty()
     }, [])
@@ -63,6 +69,7 @@ export default function App () {
           {...bountyItem} 
           key={bountyItem._id}
           editBounty={editBounty}
+          deleteBounty={deleteBounty}
           />
         )  
     })

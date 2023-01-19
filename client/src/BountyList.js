@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import BountyForm from "./BountyForm";
 
 export default function BountyList (props) {
-    const {fName, lName, living, bountyAmount, type, editBounty, _id} = props
+    const {fName, lName, living, bountyAmount, type, editBounty, _id, deleteBounty} = props
     const [toggleEdit, setToggleEdit] = useState(true)
     function toggle () {setToggleEdit(prevToggle => !prevToggle)}
+
+    function deleteBountyItem () {
+        deleteBounty(_id)
+        // console.log("clicked")
+    }
+
     return(
         <div>
             <div>{toggleEdit? 
@@ -25,14 +31,21 @@ export default function BountyList (props) {
                         living = {living}
                         bountyAmount = {bountyAmount}
                         type = {type}
+
                         addBounty={editBounty}
-                        _id ={_id}
                         toggleEdit ={toggleEdit}
+                        deleteBounty = {deleteBounty}
+
+
+                        _id ={_id}
                         toggle ={toggle}
                     />
                     <button onClick={toggle}>Exit</button>
                 </>
             }
+            <button onClick={deleteBountyItem}>Delete</button>
+                <br></br>
+                <br></br>
                 <br></br>
             </div>
         
