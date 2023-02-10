@@ -1,18 +1,13 @@
 const express = require(`express`)
 const jediRouter = express.Router()
 const mongoose = require('mongoose')
-const { v4: uuidv4 } = require('uuid');
 const bountyDB = require("../models/bountyListSchema")
 
+//set up mongoose 
 mongoose.set("strictQuery", false);
-
 mongoose.connect('mongodb://127.0.0.1:27017/bountyDB',
 {useNewUrlParser: true},
 (msg) => console.log(msg ? msg : "connected to DB"));
-
-const bounty = [
-    {fName:"luke", lName:"skywalker", living:true, bountyAmount:100, type:"jedi", _id:uuidv4()},
-]
 
 //get all
 jediRouter.get("/", (req, res, next) => {
@@ -74,4 +69,5 @@ jediRouter.put("/:bountyId", (req, res) => {
     })
 })
 
+//export
 module.exports = jediRouter
