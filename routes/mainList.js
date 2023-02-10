@@ -25,6 +25,18 @@ jediRouter.get("/", (req, res, next) => {
     })
 })
 
+//get one 
+jediRouter.get("/:bountyId", (req, res, next) => {
+    const id = req.params.bountyId
+    bountyDB.findOne({_id: id}, (err, foundBounty) => {
+        if(err) {
+            res.status(500).send(err)
+            return next (err)
+        }
+        res.status(200).send(foundBounty)
+    })
+})
+
 //add one 
 jediRouter.post("/", (req, res) => {
     const newBounty = new bountyDB(req.body)
