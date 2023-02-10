@@ -19,7 +19,7 @@ const bountyListSchema = new Schema({
     } 
 })
 
-module.exports =  mongoose.module("bountyDB", bountyListSchema)
+module.exports = mongoose.model("bountyDB", bountyListSchema)
 
 
 // {

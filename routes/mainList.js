@@ -2,6 +2,7 @@ const express = require(`express`)
 const jediRouter = express.Router()
 const mongoose = require('mongoose')
 const { v4: uuidv4 } = require('uuid');
+const bountyDB = require("../models/bountyListSchema")
 
 // const bounty = [
 //     {fName:"luke", 
@@ -75,7 +76,9 @@ const { v4: uuidv4 } = require('uuid');
 //     _id:uuidv4()}
 // ]
 
-mongoose.connect('mongodb://127.0.0.1:27017/InventoryDB',
+mongoose.set("strictQuery", false);
+
+mongoose.connect('mongodb://127.0.0.1:27017/bountyDB',
 {useNewUrlParser: true},
 (msg) => console.log(msg ? msg : "connected to DB"));
 
@@ -83,8 +86,15 @@ const bounty = [
     {fName:"luke", lName:"skywalker", living:true, bountyAmount:100, type:"jedi", _id:uuidv4()},
 ]
 
-jediRouter.get("/", (req, res) => {
-    res.send(bounty)
+//get all
+jediRouter.get("/", (req, res, next) => {
+    bountyDB.find((err, stuff) => {
+        if(err) {
+            res.status(500).send(err)
+            return next (err)
+        }
+        return res.status(200).send(stuff)
+    })
 })
 
 //post one 
@@ -96,6 +106,7 @@ jediRouter.post("/", (req, res) => {
     res.send(newJedi)
 })
 
+//delete
 jediRouter.delete("/:bountyId", (req, res) => {
     const bountyId = req.params.bountyId
     const bountyIndex = bounty.findIndex(bountyItem => bountyItem._id === bountyId)
@@ -103,6 +114,7 @@ jediRouter.delete("/:bountyId", (req, res) => {
     res.send("jedi/sith deleted")
 })
 
+//edit one 
 jediRouter.put("/:bountyId", (req, res) => {
     const bountyId = req.params.bountyId
     const updateObject = req.body
