@@ -39,10 +39,14 @@ jediRouter.post("/", (req, res) => {
 
 //delete
 jediRouter.delete("/:bountyId", (req, res) => {
-    const bountyId = req.params.bountyId
-    const bountyIndex = bounty.findIndex(bountyItem => bountyItem._id === bountyId)
-    bounty.splice(bountyIndex, 1)
-    res.send("jedi/sith deleted")
+    const id = req.params.bountyId
+    bountyDB.findOneAndDelete({_id: id}, (err, deletedBounty) => {
+        if(err) {
+            res.status(500).send(err)
+            return next (err)
+        }
+        res.status(200).send(`deleted ${deletedBounty}`)
+    })
 })
 
 //edit one 
